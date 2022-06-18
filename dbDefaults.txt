@@ -1,0 +1,59 @@
+db.shifts.insertMany([
+    {
+        startShift: '9:00 AM',
+        endShift: '5:00 PM'
+    },
+    {
+        startShift: '9:30 AM',
+        endShift: '5:30 PM'
+    },
+    {
+        startShift: '10:00 AM',
+        endShift: '6:00 PM'
+    },
+    {
+        startShift: '10:30 AM',
+        endShift: '6:30 PM'
+    },
+    {
+        startShift: '11:00 AM',
+        endShift: '7:00 PM'
+    },
+    {
+        startShift: '11:30 AM',
+        endShift: '7:30 PM'
+    }
+])
+
+db.schedules.insertMany([{
+
+        date:'06012022',
+        shifts:[
+            {
+                firstName: 'Joe',
+                lastName: 'Smith',
+                startShift:'9:00 AM',
+                endShift: '5:00 PM',
+                jobTitle:'Web Developer',
+                _id:ObjectId()
+            },
+            {
+                firstName: 'Mark',
+                lastName: 'Williams',
+                startShift:'10:00 AM',
+                endShift: '6:00 PM',
+                jobTitle:'Web Developer',
+                _id:ObjectId()
+            },
+            {
+                firstName: 'Bob',
+                lastName: 'Johnson',
+                startShift:'11:00 AM',
+                endShift: '7:00 PM',
+                jobTitle:'Web Developer',
+                _id:ObjectId()
+            }
+            ]
+    }])
+
+mongosh "mongodb+srv://cluster0.ux9gh.mongodb.net/test" --apiVersion 1 --username admin

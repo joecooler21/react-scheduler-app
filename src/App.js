@@ -1,23 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import 'react-calendar/dist/Calendar.css'
+import './App.css'
+import Calendar from 'react-calendar'
+import Schedule from './components/Schedule.js'
+import { useState, useEffect } from 'react'
+import moment from 'moment'
+import ShiftEmployeeManagement from './components/ShiftEmployeeManagement'
 
 function App() {
+  const [value, onChange] = useState(new Date())
+  const [currentDay, setCurrentDay] = useState('')
+  const [currentSchedule, setCurrentSchedule] = useState([])
+  const [updatedSchedule, setUpdatedSchedule] = useState([])
+
+  useEffect(() => {
+    setCurrentSchedule(updatedSchedule)
+  }, [updatedSchedule, setUpdatedSchedule])
+
+  const onClickDay = async (value, event) => {
+    const date = moment(value).format('L').replaceAll('/', '')
+
+
+    setCurrentDay(date)
+    const response = await fetch(`http://localhost:4000/schedule/${date}`, { method: 'GET' })
+    const data = await response.json()
+    setCurrentSchedule(data)
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className='container'>
+        <ShiftEmployeeManagement />
+        <div>
+          <Calendar value={value} onChange={onChange} onClickDay={onClickDay} />
+        </div>
+        <Schedule schedule={currentSchedule} setUpdatedSchedule={setUpdatedSchedule} value={value} />
+      </div>
     </div>
   );
 }

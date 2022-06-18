@@ -1,38 +1,146 @@
-.App {
-  text-align: center;
+ 
+ 
+ button {
+    padding-top: 5px;
+ }
+
+ button:hover {
+    cursor:pointer;
+ }
+
+.react-calendar * {
+    font-size: 1em;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+abbr[title] {
+    text-decoration-style: solid;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.container {
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+}
+
+fieldset {
+    border-radius: 5px;
+    border: 1px solid grey;
+}
+
+legend {
+    font-size: 1.1em;
+    text-align: center;
+    font-style:italic;
+}
+
+.react-calendar {
+    width:475px;
+    border-radius: 5px;
+}
+
+.react-calendar__navigation {
+    background-color: #004b92;
+
+}
+
+.react-calendar__navigation button {
+    font-weight:bold;
+    color:white;
+    font-size:1.5em;
+}
+
+.react-calendar__navigation button:enabled:hover, .react-calendar__navigation button:enabled:focus {
+    background-color: #002950;
+}
+
+.react-calendar__tile--now {
+    background: #0084ff89;
+}
+
+.react-calendar__tile--now:enabled:hover, .react-calendar__tile--now:enabled:focus {
+    background: #0084ff89;
+}
+button {
+    margin-right: .2em;
+}
+
+select {
+    margin-right: 1.5em;
+    margin-bottom: .5em;
+    width: 22ch;
+    font-size:1em;
+    padding:0px;
+    height:25px;
+    border:1px solid lightgrey;
+    border-radius:2px;
+    background-color: beige;
+}
+
+select textarea input {
+    background-color: red;
+}
+
+select:focus-visible{
+    outline: none;
+}
+
+dialog select {
+    width:20ch;
+}
+
+td select {
+    width:fit-content;
+    margin:0px;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
   }
-  to {
-    transform: rotate(360deg);
+  
+  tr:nth-child(even) {
+    background-color: #DDDDDD;
   }
-}
+
+  dialog {
+      border-radius: 5px;
+      border: 1px solid grey;
+      top: 5%;
+      box-shadow: 12px 12px 2px 1px rgba(0, 0, 0, 0.222);
+      padding:0px;
+      text-align: center;
+  }
+
+  .dialog-container {
+    padding: 15px;
+  }
+
+  input {
+      font-size:large;
+      width:13ch;
+      margin-bottom:1em;
+  }
+
+  label {
+      margin-left:5px;
+      margin-right:5px;
+  }
+
+  .caption {
+    display: flex;
+    justify-content: space-between;
+    background-color: #004b92;
+    color: white;
+    width:auto;
+    margin:0px;
+    margin-bottom: .5em;
+    padding:.3em;
+    text-align: center;
+  }
