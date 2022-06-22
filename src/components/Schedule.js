@@ -4,6 +4,7 @@ import { FaTimes, FaCheck, FaRegCalendarAlt, FaCalendarPlus, FaCalendarMinus} fr
 import { useState, useEffect } from 'react'
 import EmployeeList from './EmployeeList'
 import ShiftList from './ShiftList'
+import moment from 'moment'
 
 var key = 0;
 
@@ -40,10 +41,20 @@ useEffect(() => {
     setShowAdd(true)
     
   }
-
-  const dialogOK = () => {
+  // add shift to schedule
+  const dialogOK = async () => {
     setShowAdd(false)
-    console.log(employeeText, selectText)
+    
+    const date = moment(value).format('L').replaceAll('/', '')
+
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name:employeeText, shift:selectText, type:'ADD_SHIFT', date: date })
+    }
+
+    const response = await fetch('http://localhost:4000/schedule', options)
+    const data = response.json()
   }
 
   const dialogCancel = () => {

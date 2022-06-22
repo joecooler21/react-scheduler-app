@@ -71,12 +71,13 @@ const ScheduleEntry = ({ name, shift, id, setUpdatedSchedule, date, index }) => 
             getShifts()
         }
 
+        // edit shift and bring back updated schedule
         if (editShift) {
             const updateSchedule = async () => {
                 const options = {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ id: id, name: employeeText, shift: shiftText })
+                    body: JSON.stringify({ id: id, name: employeeText, shift: shiftText, type:'EDIT_SHIFT' })
 
                 }
                 const response = await fetch('http://localhost:4000/schedule', options)

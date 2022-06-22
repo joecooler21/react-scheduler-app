@@ -41,7 +41,7 @@ router.get('/schedule/:date', async (req, res) => {
     return
   }
   response.shifts.forEach(e => {
-    data.push({ id: e._id, name: `${e.firstName} ${e.lastName}`, shift: `${e.startShift} - ${e.endShift}`, date:date })
+    data.push({ id: e._id, name: `${e.firstName} ${e.lastName}`, shift: `${e.startShift} - ${e.endShift}`, date: date })
 
   })
   res.send(data)
@@ -49,18 +49,26 @@ router.get('/schedule/:date', async (req, res) => {
 
 // update schedule entry
 router.post('/schedule', async (req, res) => {
-  const id = req.body.id
-  const nameCopy = req.body.name.split(' ')
-  const name = { firstName: nameCopy[0], lastName: nameCopy[1] }
-  const shiftCopy = req.body.shift.split(' - ')
-  const shift = { startShift: shiftCopy[0], endShift: shiftCopy[1] }
-  const data = await Schedule.findOneAndUpdate({ 'shifts._id': ObjectId(id) },
-    {
-      'shifts.$.firstName': name.firstName,
-      'shifts.$.lastName': name.lastName,
-      'shifts.$.startShift': shift.startShift, 'shifts.$.endShift': shift.endShift
-    }, { new: true })
-  res.send(data)
+  if (req.body.type === 'ADD_SHIFT') {
+    console.log(req.body.name, req.body.shift, req.body.date)
+    return
+  }
+  
+  if (req.body.type === 'EDIT_SHIFT') {
+    const id = req.body.id
+    const nameCopy = req.body.name.split(' ')
+    const name = { firstName: nameCopy[0], lastName: nameCopy[1] }
+    const shiftCopy = req.body.shift.split(' - ')
+    const shift = { startShift: shiftCopy[0], endShift: shiftCopy[1] }
+    const data = await Schedule.findOneAndUpdate({ 'shifts._id': ObjectId(id) },
+      {
+        'shifts.$.firstName': name.firstName,
+        'shifts.$.lastName': name.lastName,
+        'shifts.$.startShift': shift.startShift, 'shifts.$.endShift': shift.endShift
+      }, { new: true })
+    res.send(data)
+    return
+  }
 })
 
 // delete schedule entry from shifts array in db
