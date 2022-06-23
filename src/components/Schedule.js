@@ -54,7 +54,10 @@ useEffect(() => {
     }
 
     const response = await fetch('http://localhost:4000/schedule', options)
-    const data = response.json()
+    const data = await response.json()
+    const updatedScheduleResponse = await fetch(`http://localhost:4000/schedule/${date}`)
+    const updatedScheduleData = await updatedScheduleResponse.json()
+    setUpdatedSchedule(updatedScheduleData)
   }
 
   const dialogCancel = () => {

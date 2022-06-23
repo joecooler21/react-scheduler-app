@@ -47,13 +47,26 @@ router.get('/schedule/:date', async (req, res) => {
   res.send(data)
 })
 
-// update schedule entry
+// update or add schedule entry
 router.post('/schedule', async (req, res) => {
+
   if (req.body.type === 'ADD_SHIFT') {
-    console.log(req.body.name, req.body.shift, req.body.date)
+    const firstName = req.body.name.split(' ')[0]
+    const lastName = req.body.name.split(' ')[1]
+    const startShift = req.body.shift.split(' - ')[0]
+    const endShift = req.body.shift.split(' - ')[1]
+    const date = req.body.date
+    const data = await Schedule.findOneAndUpdate({ date: date }, {$push:{shifts:{
+      firstName:firstName,
+      lastName:lastName,
+      startShift:startShift,
+      endShift:endShift
+
+    }}}, {upsert:true, new:true})
+    res.send(data)
     return
   }
-  
+
   if (req.body.type === 'EDIT_SHIFT') {
     const id = req.body.id
     const nameCopy = req.body.name.split(' ')
