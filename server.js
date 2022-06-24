@@ -47,6 +47,13 @@ router.get('/schedule/:date', async (req, res) => {
   res.send(data)
 })
 
+// clear entire schedule for selected day
+router.delete('/schedule/:date', async (req, res) => {
+  const { date } = req.params
+  const response = await Schedule.deleteOne({ date:date })
+  response.acknowledged ? res.send({message:'OK'}) : res.send({message:'FAILED'})
+})
+
 // update or add schedule entry
 router.post('/schedule', async (req, res) => {
 
