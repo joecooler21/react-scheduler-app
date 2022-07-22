@@ -66,6 +66,7 @@ const Schedule = ({ schedule, value, setUpdatedSchedule }) => {
   }
 
   const deleteSchedule = () => {
+    if (!schedule.length) return
     setConfirmDelete('visible')
 
   }
@@ -73,7 +74,7 @@ const Schedule = ({ schedule, value, setUpdatedSchedule }) => {
   const deleteOK = async () => {
     setConfirmDelete('hidden')
     const date = moment(value).format('L').replaceAll('/', '')
-    const response = await fetch(`http://localhost:4000/schedule/${date}`, { method: 'DELETE' })
+    const response = await fetch(`http://localhost:4000/clearschedule/${date}`, { method: 'DELETE' })
     const data = await response.json()
     if (data.message === 'OK') setUpdatedSchedule([])
   }
@@ -101,7 +102,7 @@ const Schedule = ({ schedule, value, setUpdatedSchedule }) => {
         <div style={{ display: 'flex', justifyContent: 'left', marginBottom: '1em' }}>
           <button onClick={addScheduleEntry} style={{ marginRight: '.5em', marginLeft: '1em' }}><FaCalendarPlus style={{ color: 'green' }} /></button>
           <button onClick={deleteSchedule}><FaCalendarMinus style={{ color: 'red' }} /></button>
-          <div style={{ visibility: confirmDelete }}><label style={{ color: 'red' }}>Clear Schedule?</label><button onClick={deleteOK}><FaCheck style={{ color: 'green' }} /> OK</button><button onClick={deleteCancel}><FaTimes style={{ color: 'red' }} /> Cancel</button></div>
+          <div style={{ visibility: confirmDelete }}><label style={{ color: 'red' }}>Clear Schedule?</label><button onClick={deleteOK}><FaCheck style={{ color: 'green' }} /></button><button onClick={deleteCancel}><FaTimes style={{ color: 'red' }} /></button></div>
         </div>
         <table>
           <tbody>
