@@ -1,4 +1,4 @@
-import { FaEdit, FaTimes, FaSave, FaCheck } from 'react-icons/fa'
+import { FaEdit, FaTimes, FaSave, FaCheck, FaCalendarMinus } from 'react-icons/fa'
 import { useState, useEffect } from 'react'
 import ShiftList from './ShiftList'
 import EmployeeList from './EmployeeList'
@@ -26,14 +26,14 @@ const ScheduleEntry = ({ name, shift, id, setUpdatedSchedule, date, index }) => 
         const response = await fetch('http://localhost:4000/shifts')
         const data = await response.json()
         setShiftList(data)
-        setShiftText(`${data[0].startShift} - ${data[0].endShift}`)
+        setShiftText(`${shiftState.startShift} - ${shiftState.endShift}`)
     }
 
     const getEmployees = async () => {
         const response = await fetch('http://localhost:4000/employees')
         const data = await response.json()
         setEmployeeList(data)
-        setEmployeeText(`${data[0].firstName} ${data[0].lastName}`)
+        setEmployeeText(`${nameState.firstName} ${nameState.lastName}`)
     }
 
     const dialogOK = async () => {
@@ -109,9 +109,10 @@ const ScheduleEntry = ({ name, shift, id, setUpdatedSchedule, date, index }) => 
                     </button>
 
                     <dialog style={{ top: '55%' }} open={dialogRemove}>
-                        <h3 className='caption'>Confirm Schedule Entry Deletion</h3>
+                        <h3 className='caption'><FaCalendarMinus /> Confirm Schedule Entry Deletion <div></div></h3>
                         <div className='dialog-container'>
                             <div style={{ fontWeight: 'bold' }}>{employeeText}</div>
+                            <br></br>
                             <div style={{ fontWeight: 'bold' }}>{shiftText}</div>
                             <p>Are you sure you want to remove this entry?</p>
                             <button onClick={dialogOK}><FaCheck style={{ color: 'green' }} />OK</button>
