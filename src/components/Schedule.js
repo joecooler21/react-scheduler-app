@@ -8,7 +8,7 @@ import moment from 'moment'
 
 var key = 0;
 
-const Schedule = ({ schedule, value, setUpdatedSchedule }) => {
+const Schedule = ({ schedule, value, setUpdatedSchedule, updatedEmployees, updatedShifts }) => {
 
   const [showAdd, setShowAdd] = useState(false)
   const [employeeList, setEmployeeList] = useState([])
@@ -36,7 +36,13 @@ const Schedule = ({ schedule, value, setUpdatedSchedule }) => {
   useEffect(() => {
     getEmployees()
     getShifts()
-  }, [])
+    setEmployeeList(updatedEmployees)
+  }, [updatedEmployees])
+
+  useEffect(() => {
+    setShiftList(updatedShifts)
+
+  }, [updatedShifts])
 
   const addScheduleEntry = () => {
     setShowAdd(true)
@@ -97,7 +103,7 @@ const Schedule = ({ schedule, value, setUpdatedSchedule }) => {
         </div>
       </dialog>
 
-      <div style={{ border: '1px solid lightgrey', marginTop: '1em', width: '475px', borderRadius: '5px' }}>
+      <div className='component-container'>
         <h3 className='caption' ><FaRegCalendarAlt /> <div>Schedule for <span style={{ fontWeight: 'bold' }}>{value.toDateString()}</span></div><div></div></h3>
         <div style={{ display: 'flex', justifyContent: 'left', marginBottom: '1em' }}>
           <button onClick={addScheduleEntry} style={{ marginRight: '.5em', marginLeft: '1em' }}><FaCalendarPlus style={{ color: 'green' }} /></button>

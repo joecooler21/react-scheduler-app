@@ -8,7 +8,7 @@ import moment from 'moment'
 
 
 
-const ShiftEmployeeManagement = () => {
+const ShiftEmployeeManagement = ({ setUpdatedEmployees, setUpdatedShifts }) => {
   const [selectedShift, setSelectedShift] = useState({})
   const [selectedEmployee, setSelectedEmployee] = useState({})
   const [selectText, setSelectText] = useState('')
@@ -49,6 +49,8 @@ const ShiftEmployeeManagement = () => {
     const response = await fetch(`http://localhost:4000/shifts/${selectedShift}`, { method: 'DELETE' })
     const data = await response.json()
     setShiftList(data)
+    // when a shift is removed pass up updated list
+    setUpdatedShifts(data)
     setSelectedShift(data[0].id)
 
 
@@ -58,6 +60,8 @@ const ShiftEmployeeManagement = () => {
     const response = await fetch(`http://localhost:4000/employees/${selectedEmployee}`, { method: 'DELETE' })
     const data = await response.json()
     setEmployees(data)
+    // when an employee is removed pass up updated list
+    setUpdatedEmployees(data)
     setSelectedEmployee(data[0].id)
 
   }
@@ -87,6 +91,8 @@ const ShiftEmployeeManagement = () => {
     const response = await fetch(`http://localhost:4000/shifts`, options)
     const data = await response.json()
     setShiftList(data)
+    // when a shift is added pass up updated list
+    setUpdatedShifts(data)
 
     setModalAddShiftVisible(false)
     setStartTime('')
@@ -151,6 +157,8 @@ const ShiftEmployeeManagement = () => {
     const response = await fetch(`http://localhost:4000/employees`, options)
     const data = await response.json()
     setEmployees(data)
+    // when an employee is added pass up updated employee list
+    setUpdatedEmployees(data)
     const blank = { ...employeeName, firstName: '', lastName: '' }
     setEmployeeName(blank)
   }
@@ -240,7 +248,7 @@ const ShiftEmployeeManagement = () => {
 
       </dialog>
 
-      <div style={{ width: '475px', marginTop: '1em', marginBottom: '1em', border: '1px solid lightgrey' }}>
+      <div className='component-container'>
         <h3 className='caption'><FaUserClock /> Employee/Shift Management <div></div></h3>
         <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
           <div>

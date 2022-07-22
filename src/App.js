@@ -11,6 +11,8 @@ function App() {
   const [currentDay, setCurrentDay] = useState('')
   const [currentSchedule, setCurrentSchedule] = useState([])
   const [updatedSchedule, setUpdatedSchedule] = useState([])
+  const [updatedEmployees, setUpdatedEmployees] = useState([])
+  const [updatedShifts, setUpdatedShifts] = useState([])
 
   useEffect(() => {
     setCurrentSchedule(updatedSchedule)
@@ -30,11 +32,11 @@ function App() {
   return (
     <div>
       <div className='container'>
-        <ShiftEmployeeManagement />
+        <ShiftEmployeeManagement setUpdatedEmployees={setUpdatedEmployees} setUpdatedShifts={setUpdatedShifts} />
         <div>
           <Calendar value={value} onChange={onChange} onClickDay={onClickDay} />
         </div>
-        <Schedule schedule={currentSchedule} setUpdatedSchedule={setUpdatedSchedule} value={value} />
+        <Schedule updatedEmployees={updatedEmployees} updatedShifts={updatedShifts} schedule={currentSchedule} setUpdatedSchedule={setUpdatedSchedule} value={value} />
       </div>
     </div>
   );

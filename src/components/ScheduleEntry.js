@@ -112,7 +112,6 @@ const ScheduleEntry = ({ name, shift, id, setUpdatedSchedule, date, index }) => 
                         <h3 className='caption'><FaCalendarMinus /> Confirm Schedule Entry Deletion <div></div></h3>
                         <div className='dialog-container'>
                             <div style={{ fontWeight: 'bold' }}>{employeeText}</div>
-                            <br></br>
                             <div style={{ fontWeight: 'bold' }}>{shiftText}</div>
                             <p>Are you sure you want to remove this entry?</p>
                             <button onClick={dialogOK}><FaCheck style={{ color: 'green' }} />OK</button>

@@ -1,148 +1,158 @@
- 
- 
  button {
-    padding-top: 5px;
-    background-color: white;
-    border: 1px solid grey;
-    border-radius: 5px;
+     padding-top: 5px;
+     background-color: white;
+     border: 1px solid grey;
+     border-radius: 5px;
  }
 
  button:hover {
-    cursor:pointer;
+     cursor: pointer;
  }
 
-.react-calendar * {
-    font-size: 1em;
-}
+ .react-calendar * {
+     font-size: 1em;
+ }
 
-abbr[title] {
-    text-decoration-style: solid;
-}
+ abbr[title] {
+     text-decoration-style: solid;
+ }
 
-.container {
-    display: flex;
-    flex-direction:column;
-    align-items: center;
-}
+ .container {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+ }
 
-fieldset {
-    border-radius: 5px;
-    border: 1px solid grey;
-}
+ fieldset {
+     border-radius: 5px;
+     border: 1px solid grey;
+ }
 
-legend {
-    font-size: 1.1em;
-    text-align: center;
-    font-style:italic;
-}
+ legend {
+     font-size: 1.1em;
+     text-align: center;
+     font-style: italic;
+ }
 
-.react-calendar {
-    width:475px;
-    border-radius: 5px;
-}
+ .react-calendar {
+     width: 475px;
+     border-radius: 5px;
+ }
 
-.react-calendar__navigation {
-    background-color: #004b92;
+ .react-calendar__navigation {
+     background-color: #004b92;
 
-}
+ }
 
-.react-calendar__navigation button {
-    font-weight:bold;
-    color:white;
-    font-size:1.5em;
-}
+ .react-calendar__navigation button {
+     font-weight: bold;
+     color: white;
+     font-size: 1.5em;
+ }
 
-.react-calendar__navigation button:enabled:hover, .react-calendar__navigation button:enabled:focus {
-    background-color: #002950;
-}
+ .react-calendar__navigation button:enabled:hover,
+ .react-calendar__navigation button:enabled:focus {
+     background-color: #002950;
+ }
 
-.react-calendar__tile--now {
-    background: #0084ff89;
-}
+ .react-calendar__tile--now {
+     background: #0084ff89;
+ }
 
-.react-calendar__tile--now:enabled:hover, .react-calendar__tile--now:enabled:focus {
-    background: #0084ff89;
-}
-button {
-    margin-right: .2em;
-}
+ .react-calendar__tile--now:enabled:hover,
+ .react-calendar__tile--now:enabled:focus {
+     background: #0084ff89;
+ }
 
-select {
-    margin-right: 1.5em;
-    margin-bottom: .5em;
-    width: 22ch;
-    font-size:1em;
-    padding:0px;
-    height:25px;
-    border:1px solid lightgrey;
-    border-radius:2px;
-    background-color: beige;
-}
+ button {
+     margin-right: .2em;
+ }
 
-select textarea input {
-    background-color: red;
-}
+ select {
+     margin-right: 1.5em;
+     margin-bottom: .5em;
+     width: 22ch;
+     font-size: 1em;
+     padding: 0px;
+     height: 25px;
+     border: 1px solid lightgrey;
+     border-radius: 2px;
+     background-color: beige;
+ }
 
-select:focus-visible{
-    outline: none;
-}
+ select textarea input {
+     background-color: red;
+ }
 
-dialog select {
-    width:20ch;
-}
+ select:focus-visible {
+     outline: none;
+ }
 
-td select {
-    width:fit-content;
-    margin:0px;
-}
+ dialog select {
+     width: 20ch;
+ }
 
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #DDDDDD;
-  }
+ td select {
+     width: fit-content;
+     margin: 0px;
+ }
 
-  dialog {
-      border-radius: 5px;
-      border: 1px solid grey;
-      top: 5%;
-      box-shadow: 12px 12px 2px 1px rgba(0, 0, 0, 0.222);
-      padding:0px;
-      text-align: center;
-  }
+ table {
+     font-family: arial, sans-serif;
+     border-collapse: collapse;
+     width: 100%;
+ }
 
-  .dialog-container {
-    padding: 15px;
-  }
+ td,
+ th {
+     border: 1px solid #dddddd;
+     text-align: left;
+     padding: 8px;
+ }
 
-  input {
-      font-size:large;
-      width:13ch;
-      margin-bottom:1em;
-  }
+ tr:nth-child(even) {
+     background-color: #DDDDDD;
+ }
 
-  label {
-      margin-left:5px;
-      margin-right:5px;
-  }
+ dialog {
+     border-radius: 5px;
+     border: 1px solid grey;
+     top: 5%;
+     box-shadow: 12px 12px 2px 1px rgba(0, 0, 0, 0.222);
+     padding: 0px;
+     text-align: center;
+ }
 
-  .caption {
-    display: flex;
-    justify-content: space-between;
-    background-color: #004b92;
-    color: white;
-    width:auto;
-    margin:0px;
-    margin-bottom: .5em;
-    padding:.3em;
-  }
+ .dialog-container {
+     padding: 15px;
+ }
+
+ input {
+     font-size: large;
+     width: 13ch;
+     margin-bottom: 1em;
+ }
+
+ label {
+     margin-left: 5px;
+     margin-right: 5px;
+ }
+
+ .caption {
+     display: flex;
+     justify-content: space-between;
+     background-color: #004b92;
+     color: white;
+     width: auto;
+     margin: 0px;
+     margin-bottom: .5em;
+     padding: .3em;
+ }
+
+ .component-container {
+     width: 475px;
+     margin-top: 1em;
+     margin-bottom: 1em;
+     border: 1px solid lightgrey;
+     border-radius: 5px;
+ }
