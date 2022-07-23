@@ -17,7 +17,8 @@ const Schedule = ({ schedule, value, setUpdatedSchedule, updatedEmployees, updat
   const [selectedEmployee, setSelectedEmployee] = useState('')
   const [selectText, setSelectText] = useState('')
   const [selectedShift, setSelectedShift] = useState('')
-  const [confirmDelete, setConfirmDelete] = useState('hidden')
+  const [confirmDelete, setConfirmDelete] = useState(false)
+  const [hideContent, setHideContent] = useState(false)
 
   const getEmployees = async () => {
     const response = await fetch('http://localhost:4000/employees')
@@ -46,11 +47,13 @@ const Schedule = ({ schedule, value, setUpdatedSchedule, updatedEmployees, updat
 
   const addScheduleEntry = () => {
     setShowAdd(true)
+    setHideContent(true)
 
   }
   // add shift to schedule
   const dialogOK = async () => {
     setShowAdd(false)
+    setHideContent(false)
 
     const date = moment(value).format('L').replaceAll('/', '')
 
@@ -69,16 +72,19 @@ const Schedule = ({ schedule, value, setUpdatedSchedule, updatedEmployees, updat
 
   const dialogCancel = () => {
     setShowAdd(false)
+    setHideContent(false)
   }
 
   const deleteSchedule = () => {
     if (!schedule.length) return
-    setConfirmDelete('visible')
+    setConfirmDelete(true)
+    setHideContent(true)
 
   }
 
   const deleteOK = async () => {
-    setConfirmDelete('hidden')
+    setConfirmDelete(false)
+    setHideContent(false)
     const date = moment(value).format('L').replaceAll('/', '')
     const response = await fetch(`http://localhost:4000/clearschedule/${date}`, { method: 'DELETE' })
     const data = await response.json()
@@ -86,29 +92,32 @@ const Schedule = ({ schedule, value, setUpdatedSchedule, updatedEmployees, updat
   }
 
   const deleteCancel = () => {
-    setConfirmDelete('hidden')
+    setConfirmDelete(false)
+    setHideContent(false)
   }
 
   return (
     <div>
-      <dialog style={{ top: '20%' }} open={showAdd}>
-        <h3 className='caption'><FaCalendarPlus /> Add Shift <div></div></h3>
-        <div className='dialog-container'>
+      <div className='component-container'>
+        <h3 className='caption' ><FaRegCalendarAlt /> <div>Schedule for <span style={{ fontWeight: 'bold' }}>{value.toDateString()}</span></div><div></div></h3>
+        <div style={{ display: 'flex', justifyContent: 'left', marginBottom: '1em' }}>
+          {hideContent ? <div></div> : <div>
+          <button onClick={addScheduleEntry} style={{ marginRight: '.5em', marginLeft: '1em' }}><FaCalendarPlus style={{ color: 'green' }} /></button>
+          <button onClick={deleteSchedule}><FaCalendarMinus style={{ color: 'red' }} /></button>
+          </div>}
+
+          {confirmDelete ? <div><label style={{ color: 'red' }}>Clear Schedule?</label><button onClick={deleteOK}><FaCheck style={{ color: 'green' }} /></button><button onClick={deleteCancel}><FaTimes style={{ color: 'red' }} /></button></div> : <div></div>}
+
+          {showAdd ? <div style={{width:'100%', textAlign:'center'}}>
+            <p style={{fontWeight:'bold', marginBottom:'10px'}}>Add Schedule Entry</p>
           <EmployeeList employeeList={employeeList} setEmployeeText={setEmployeeText} setSelectedEmployee={setSelectedEmployee} />
           <div></div>
           <ShiftList shiftList={shiftList} setSelectedShift={setSelectedShift} setSelectText={setSelectText} />
           <div></div>
-          <button onClick={dialogOK}><FaCheck style={{ color: 'green' }} />OK</button>
+          <button style={{marginRight: '10px', marginTop:'5px'}} onClick={dialogOK}><FaCheck style={{ color: 'green' }} />OK</button>
           <button onClick={dialogCancel}><FaTimes style={{ color: 'red' }} />Cancel</button>
-        </div>
-      </dialog>
+        </div> : <div></div>}
 
-      <div className='component-container'>
-        <h3 className='caption' ><FaRegCalendarAlt /> <div>Schedule for <span style={{ fontWeight: 'bold' }}>{value.toDateString()}</span></div><div></div></h3>
-        <div style={{ display: 'flex', justifyContent: 'left', marginBottom: '1em' }}>
-          <button onClick={addScheduleEntry} style={{ marginRight: '.5em', marginLeft: '1em' }}><FaCalendarPlus style={{ color: 'green' }} /></button>
-          <button onClick={deleteSchedule}><FaCalendarMinus style={{ color: 'red' }} /></button>
-          <div style={{ visibility: confirmDelete }}><label style={{ color: 'red' }}>Clear Schedule?</label><button onClick={deleteOK}><FaCheck style={{ color: 'green' }} /></button><button onClick={deleteCancel}><FaTimes style={{ color: 'red' }} /></button></div>
         </div>
         <table>
           <tbody>

@@ -22,6 +22,7 @@ const ShiftEmployeeManagement = ({ setUpdatedEmployees, setUpdatedShifts }) => {
   const [startTime, setStartTime] = useState('')
   const [endTime, setEndTime] = useState('')
   const [employeeName, setEmployeeName] = useState({ firstName: '', lastName: '' })
+  const [hideContent, setHideContent] = useState(false)
 
   const getShifts = async () => {
     const response = await fetch('http://localhost:4000/shifts')
@@ -95,18 +96,21 @@ const ShiftEmployeeManagement = ({ setUpdatedEmployees, setUpdatedShifts }) => {
     setUpdatedShifts(data)
 
     setModalAddShiftVisible(false)
+    setHideContent(false)
     setStartTime('')
     setEndTime('')
   }
 
   const addShiftModalCancel = () => {
     setModalAddShiftVisible(false)
+    setHideContent(false)
     setStartTime('')
     setEndTime('')
   }
 
   const showAddShiftModal = () => {
     setModalAddShiftVisible(true)
+    setHideContent(true)
   }
 
   const startInputChange = (e) => {
@@ -122,31 +126,37 @@ const ShiftEmployeeManagement = ({ setUpdatedEmployees, setUpdatedShifts }) => {
   // remove shift modal functions
   const removeShiftModalOK = async () => {
     setModalRemoveShiftVisible(false)
+    setHideContent(false)
     removeShift()
 
   }
   const removeShiftModalCancel = () => {
     setModalRemoveShiftVisible(false)
+    setHideContent(false)
   }
   const showRemoveShiftModal = () => {
     setModalRemoveShiftVisible(true)
+    setHideContent(true)
   }
   ////////////////////////////////////
 
   // add employee modal functions
   const showAddEmployeeModal = () => {
     setModalAddEmployeeVisible(true)
+    setHideContent(true)
   }
 
   const addEmployeeModalCancel = () => {
     setModalAddEmployeeVisible(false)
     const blank = { ...employeeName, firstName: '', lastName: '' }
     setEmployeeName(blank)
+    setHideContent(false)
   }
 
   const addEmployeeModalOK = async () => {
     if (employeeName.firstName == '' || employeeName.lastName == '') return
     setModalAddEmployeeVisible(false)
+    setHideContent(false)
 
     const options = {
       method: 'POST',
@@ -179,78 +189,67 @@ const ShiftEmployeeManagement = ({ setUpdatedEmployees, setUpdatedShifts }) => {
 
   const showRemoveEmployeeModal = () => {
     setModalRemoveEmployeeVisible(true)
+    setHideContent(true)
 
   }
 
   const removeEmployeeModalOK = () => {
     setModalRemoveEmployeeVisible(false)
+    setHideContent(false)
     removeEmployee()
 
   }
 
   const removeEmployeeModalCancel = () => {
     setModalRemoveEmployeeVisible(false)
+    setHideContent(false)
 
   }
 
   return (
     <div>
-      <dialog open={modalRemoveShiftVisible}>
+      <div className='component-container'>
+        <h3 className='caption'><FaUserClock /> Employee/Shift Management <div></div></h3>
 
-        <h3 className='caption'><FaRegCalendarMinus /> Confirm Shift Removal <div></div></h3>
-        <div className='dialog-container'>
-          <p style={{ fontWeight: 'bold', margin: '0px' }}>{selectText}</p>
-          <p>Are you sure you want to remove this shift?</p>
-          <button onClick={removeShiftModalOK}><FaCheck style={{ color: 'green' }} />OK</button>
-          <button onClick={removeShiftModalCancel}><FaTimes style={{ color: 'red' }} />Cancel</button>
-        </div>
-      </dialog>
-
-      <dialog open={modalRemoveEmployeeVisible}>
-
-        <h3 className='caption'><FaUserMinus /> Confirm Employee Removal <div></div></h3>
-        <div className='dialog-container'>
-          <p style={{ fontWeight: 'bold', margin: '0px' }}>{employeeText}</p>
-          <p>Are you sure you want to remove this employee?</p>
-          <button onClick={removeEmployeeModalOK}><FaCheck style={{ color: 'green' }} />OK</button>
-          <button onClick={removeEmployeeModalCancel}><FaTimes style={{ color: 'red' }} />Cancel</button>
-        </div>
-      </dialog>
-
-      <dialog style={{ textAlign: 'center' }} open={modalAddShiftVisible}>
-
-        <h3 className='caption'><FaRegCalendarPlus /> Add Shift <div></div></h3>
-        <div className='dialog-container'>
+        {modalAddShiftVisible ? <div className='dialog-container'>
+          <p style={{fontWeight:'bold', margin:'0px'}}>Add Shift</p>
+          <div></div>
           <input value={startTime} onChange={startInputChange} type='time'></input>
           <label>to</label>
           <input value={endTime} onChange={endInputChange} type='time'></input>
           <div></div>
           <button onClick={addShiftModalOK}><FaCheck style={{ color: 'green' }} />OK</button>
           <button onClick={addShiftModalCancel}><FaTimes style={{ color: 'red' }} />Cancel</button>
+          </div> : <div></div>}
 
-        </div>
-      </dialog>
+          {modalRemoveShiftVisible ? <div className='dialog-container'>
+          <p style={{ fontWeight: 'bold', margin: '0px' }}>{selectText}</p>
+          <p>Are you sure you want to remove this shift?</p>
+          <button onClick={removeShiftModalOK}><FaCheck style={{ color: 'green' }} />OK</button>
+          <button onClick={removeShiftModalCancel}><FaTimes style={{ color: 'red' }} />Cancel</button>
+        </div> : <div></div>}
 
-      <dialog style={{ textAlign: 'center' }} open={modalAddEmployeeVisible}>
-        
-
-          <h3 className='caption'><FaUserPlus /> Add Employee <div></div></h3>
-          <div className='dialog-container'>
-          <label>First Name</label>
+        {modalAddEmployeeVisible ? <div className='dialog-container'>
+          <p style={{fontWeight:'bold', margin:'0px'}}>Add Employee</p>
+          <br></br>
+          <label>First </label>
           <input value={employeeName.firstName} onChange={inputFirstNameChange} type='text'></input>
           <div></div>
-          <label>Last Name</label>
+          <label>Last </label>
           <input value={employeeName.lastName} onChange={inputLastNameChange} type='text'></input>
           <div></div>
           <button onClick={addEmployeeModalOK}><FaCheck style={{ color: 'green' }} />OK</button>
           <button onClick={addEmployeeModalCancel}><FaTimes style={{ color: 'red' }} />Cancel</button>
-        </div>
+        </div>:<div></div>}
 
-      </dialog>
+        {modalRemoveEmployeeVisible ? <div className='dialog-container'>
+          <p style={{ fontWeight: 'bold', margin: '0px' }}>{employeeText}</p>
+          <p>Are you sure you want to remove this employee?</p>
+          <button onClick={removeEmployeeModalOK}><FaCheck style={{ color: 'green' }} />OK</button>
+          <button onClick={removeEmployeeModalCancel}><FaTimes style={{ color: 'red' }} />Cancel</button>
+        </div>: <div></div>}
 
-      <div className='component-container'>
-        <h3 className='caption'><FaUserClock /> Employee/Shift Management <div></div></h3>
-        <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+        <div style={hideContent ? { display: 'none' } : { display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
           <div>
             <div>Shifts</div>
             <ShiftList setSelectText={setSelectText} shiftList={shiftList} setSelectedShift={setSelectedShift} />
