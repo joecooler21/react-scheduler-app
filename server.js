@@ -12,7 +12,7 @@ const Schedule = require('.//schema/Schedule')
 const Shifts = require('.//schema/Shifts')
 const Employees = require('.//schema/Employees')
 const { ObjectId } = require('mongodb')
-const uri = `mongodb+srv://${USER}:${PASS}@cluster0.ux9gh.mongodb.net/?retryWrites=true&w=majority`
+const uri = `mongodb+srv://${USER}:${PASS}@cluster0.a9s39hw.mongodb.net/?retryWrites=true&w=majority`
 
 app.use(cors())
 app.use(express.json())
@@ -46,6 +46,21 @@ router.get('/schedule/:date', async (req, res) => {
   })
   res.send(data)
 })
+
+// return weekly schedule based on range of dates provided by calender click
+
+router.get('/week/:range', async (req, res) => {
+  const data = []
+  const range = req.params.range.split(',')
+
+  const response = await Schedule.find({ date : { $in : range }})
+
+  res.send(response)
+  console.log(response)
+
+})
+
+  
 
 // clear entire schedule for selected day
 router.delete('/clearschedule/:date', async (req, res) => {
