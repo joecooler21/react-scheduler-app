@@ -4,23 +4,7 @@ import { FaTimes, FaCalendarAlt } from 'react-icons/fa'
 
 
 const PrintableView = ({ show, setShowPV, day, range, weeklySchedule }) => {
-
-    // weeklySchedule only comes back with data for days scheduled and omits nonscheduled days, so let's find those
-    const findMissingDays = () => {
-        if (range.length == weeklySchedule.length) return []
-
-        const dates = []
-        const missing = []
-
-        weeklySchedule.forEach(e => { dates.push(e.date) })
-
-        range.forEach(e => {
-            if (!dates.includes(e)) missing.push(e)
-        })
-
-        return missing
-    }
-
+    
     const closeDialog = () => {
         setShowPV(false)
 

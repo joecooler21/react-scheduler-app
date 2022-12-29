@@ -21,6 +21,8 @@ const ScheduleEntry = ({ name, shift, id, setUpdatedSchedule, date, index }) => 
     const [nameState, setNameState] = useState({ firstName: name.split(' ')[0], lastName: name.split(' ')[1] })
     const [shiftState, setShiftState] = useState({ startShift: shift.split(' - ')[0], endShift: shift.split(' - ')[1] })
     const [dialogRemove, showDialogRemove] = useState(false)
+    const [defaultEmployeeIndex, setDefaultEmployeeIndex] = useState(0)
+    const [defaultShiftIndex, setDefaultShiftIndex] = useState(0)
 
     const getShifts = async () => {
         const response = await fetch('http://localhost:4000/shifts')
@@ -65,8 +67,16 @@ const ScheduleEntry = ({ name, shift, id, setUpdatedSchedule, date, index }) => 
 
 
     const editClick = () => {
+
         editShift ? setEditShift(false) : setEditShift(true)
         if (!editShift) {
+            employeeList.forEach ((e, index) => {
+                if (employeeText === `${e.firstName} ${e.lastName}`) setDefaultEmployeeIndex(index)
+            })
+            shiftList.forEach((e, index) => {
+                if (shiftText == `${e.startShift} - ${e.endShift}`) setDefaultShiftIndex(index)
+
+            })
             getEmployees()
             getShifts()
         }
@@ -98,9 +108,9 @@ const ScheduleEntry = ({ name, shift, id, setUpdatedSchedule, date, index }) => 
     return (
 
         <tr>
-            <td>{editShift ? <EmployeeList employeeList={employeeList} setSelectedEmployee={setSelectedEmployee} setEmployeeText={setEmployeeText} /> : `${nameState.firstName} ${nameState.lastName}`}</td>
+            <td>{editShift ? <EmployeeList defaultEmployeeIndex={defaultEmployeeIndex} employeeList={employeeList} setSelectedEmployee={setSelectedEmployee} setEmployeeText={setEmployeeText} /> : `${nameState.firstName} ${nameState.lastName}`}</td>
             <td style={{ display: 'flex', justifyContent: 'space-between' }}>
-                {editShift ? <ShiftList shiftList={shiftList} setSelectedShift={setSelectedShift} setSelectText={setShiftText} /> : `${shiftState.startShift} - ${shiftState.endShift}`}
+                {editShift ? <ShiftList defaultShiftIndex={defaultShiftIndex} shiftList={shiftList} setSelectedShift={setSelectedShift} setSelectText={setShiftText} /> : `${shiftState.startShift} - ${shiftState.endShift}`}
                 <div style={{ display: 'inline-block' }}>
                     <button onClick={editClick} style={buttonStyles}>
                         {editShift ? <FaSave style={{ color: 'purple' }} /> : <FaEdit style={{ color: 'green' }} />}

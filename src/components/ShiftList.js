@@ -1,4 +1,8 @@
-const ShiftList = ({ setSelectedShift, setSelectText, shiftList }) => {
+import { useRef, useEffect } from 'react'
+
+const ShiftList = ({ setSelectedShift, setSelectText, shiftList, defaultShiftIndex }) => {
+
+    const sRef = useRef(null)
 
    
     const onChange = (e) => {
@@ -7,9 +11,13 @@ const ShiftList = ({ setSelectedShift, setSelectText, shiftList }) => {
 
       }
 
+      useEffect(() => {
+        sRef.current.selectedIndex = defaultShiftIndex
+      }, [])
+
   return (
       <>
-      <select onChange={onChange}>{shiftList.map(e=>{return <option value={e.id} key={e.id}>{e.startShift} - {e.endShift}</option>})}</select>
+      <select ref={sRef} onChange={onChange}>{shiftList.map(e=>{return <option value={e.id} key={e.id}>{e.startShift} - {e.endShift}</option>})}</select>
       </>
   )
 }
