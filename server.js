@@ -106,6 +106,11 @@ router.post('/schedule', async (req, res) => {
   }
 })
 
+router.post('/fill', async(req, res) => {
+  const dates = req.body.dates
+  // find all schedules in current month and delete
+})
+
 // delete schedule entry from shifts array in db
 router.delete('/schedule/:id', async (req, res) => {
   const { id } = req.params

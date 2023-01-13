@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaTimes, FaCalendarAlt } from 'react-icons/fa'
+import { FaTimes } from 'react-icons/fa'
 
 
 
@@ -20,7 +20,7 @@ const PrintableView = ({ show, setShowPV, day, range, weeklySchedule }) => {
     return (
 
         <dialog open={show} style={{ width: '95%', height: '70%', top: '10%', border:'none', boxShadow:'none' }}>
-            <h3 style={{display:'flex', justifyContent:'space-between'}}><div></div>{!range.length ? `No Schedule` : `Schedule for ${formatDate(range[0])} - ${formatDate(range[6])}`}<button onClick={closeDialog}><FaTimes style={{ color: 'red' }} /></button></h3>
+            <h3 style={{display:'flex', justifyContent:'space-between'}}><div></div>{!range.length ? `No Schedule` : `Schedule for ${formatDate(range[0])} - ${formatDate(range[6])}`}<button style={{border:'none'}} onClick={closeDialog}><FaTimes style={{ color: 'red' }} /></button></h3>
             <table style={{ width: '98%', margin: '.8em' }}>
                 <tbody>
 

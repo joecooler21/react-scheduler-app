@@ -19,8 +19,44 @@ function App() {
   const [showPV, setShowPV] = useState(false)
   const [weeklySchedule, setWeeklySchedule] = useState([])
 
+  // erase all db data and fill current month with randomized schedule data
+  const loadDummyData = async () => {
+    let allDays = []
+    let month = moment().month() + 1
+    if (month <= 9) {
+      month = '0' + month
+    }
+    let days = moment().daysInMonth()
+    let year = moment().year()
+
+    for (let i = 1; i <= days; i++) {
+      let currDay = ''
+      if (i <= 9) {
+        currDay = '0' + i
+        allDays.push(`${month}${currDay}${year}`)
+        continue
+      }
+      allDays.push(`${month}${i}${year}`)
+    }
+
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({dates:allDays})
+    }
+
+    try {
+      const response = await fetch(`http://localhost:4000/fill`, options)
+      const data = response.json()
+    } catch {
+      console.log('error')
+    }
+    
+  }
+
   useEffect(() => {
     setCurrentSchedule(updatedSchedule)
+    loadDummyData()
   }, [updatedSchedule, setUpdatedSchedule])
 
   const onClickDay = async (value, event) => {
