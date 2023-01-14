@@ -25,7 +25,7 @@ const ShiftEmployeeManagement = ({ setUpdatedEmployees, setUpdatedShifts }) => {
   const [hideContent, setHideContent] = useState(false)
 
   const getShifts = async () => {
-    const response = await fetch('http://localhost:4000/shifts')
+    const response = await fetch('https://delightful-neckerchief-foal.cyclic.app/shifts')
     const data = await response.json()
     setShiftList(data)
     setSelectedShift(data[0].id)
@@ -33,7 +33,7 @@ const ShiftEmployeeManagement = ({ setUpdatedEmployees, setUpdatedShifts }) => {
   }
 
   const getEmployees = async () => {
-    const response = await fetch('http://localhost:4000/employees')
+    const response = await fetch('https://delightful-neckerchief-foal.cyclic.app/employees')
     const data = await response.json()
     setEmployees(data)
     setSelectedEmployee(data[0].id)
@@ -47,7 +47,7 @@ const ShiftEmployeeManagement = ({ setUpdatedEmployees, setUpdatedShifts }) => {
 
 
   const removeShift = async () => {
-    const response = await fetch(`http://localhost:4000/shifts/${selectedShift}`, { method: 'DELETE' })
+    const response = await fetch(`https://delightful-neckerchief-foal.cyclic.app/shifts/${selectedShift}`, { method: 'DELETE' })
     const data = await response.json()
     setShiftList(data)
     // when a shift is removed pass up updated list
@@ -58,7 +58,7 @@ const ShiftEmployeeManagement = ({ setUpdatedEmployees, setUpdatedShifts }) => {
   }
 
   const removeEmployee = async () => {
-    const response = await fetch(`http://localhost:4000/employees/${selectedEmployee}`, { method: 'DELETE' })
+    const response = await fetch(`https://delightful-neckerchief-foal.cyclic.app/employees/${selectedEmployee}`, { method: 'DELETE' })
     const data = await response.json()
     setEmployees(data)
     // when an employee is removed pass up updated list
@@ -89,7 +89,7 @@ const ShiftEmployeeManagement = ({ setUpdatedEmployees, setUpdatedShifts }) => {
       body: JSON.stringify({ startShift: start, endShift: end })
     }
 
-    const response = await fetch(`http://localhost:4000/shifts`, options)
+    const response = await fetch(`https://delightful-neckerchief-foal.cyclic.app/shifts`, options)
     const data = await response.json()
     setShiftList(data)
     // when a shift is added pass up updated list
@@ -164,7 +164,7 @@ const ShiftEmployeeManagement = ({ setUpdatedEmployees, setUpdatedShifts }) => {
       body: JSON.stringify(employeeName)
     }
 
-    const response = await fetch(`http://localhost:4000/employees`, options)
+    const response = await fetch(`https://delightful-neckerchief-foal.cyclic.app/employees`, options)
     const data = await response.json()
     setEmployees(data)
     // when an employee is added pass up updated employee list

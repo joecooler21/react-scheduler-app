@@ -21,14 +21,14 @@ const Schedule = ({ weekRange, schedule, value, setUpdatedSchedule, updatedEmplo
   const [hideContent, setHideContent] = useState(false)
 
   const getEmployees = async () => {
-    const response = await fetch('http://localhost:4000/employees')
+    const response = await fetch('https://delightful-neckerchief-foal.cyclic.app/employees')
     const data = await response.json()
     setEmployeeList(data)
     setEmployeeText(`${data[0].firstName} ${data[0].lastName}`)
   }
 
   const getShifts = async () => {
-    const response = await fetch('http://localhost:4000/shifts')
+    const response = await fetch('https://delightful-neckerchief-foal.cyclic.app/shifts')
     const data = await response.json()
     setShiftList(data)
     setSelectText(`${data[0].startShift} - ${data[0].endShift}`)
@@ -63,9 +63,9 @@ const Schedule = ({ weekRange, schedule, value, setUpdatedSchedule, updatedEmplo
       body: JSON.stringify({ name: employeeText, shift: selectText, type: 'ADD_SHIFT', date: date })
     }
 
-    const response = await fetch('http://localhost:4000/schedule', options)
+    const response = await fetch('https://delightful-neckerchief-foal.cyclic.app/schedule', options)
     const data = await response.json()
-    const updatedScheduleResponse = await fetch(`http://localhost:4000/schedule/${date}`)
+    const updatedScheduleResponse = await fetch(`https://delightful-neckerchief-foal.cyclic.app/schedule/${date}`)
     const updatedScheduleData = await updatedScheduleResponse.json()
     setUpdatedSchedule(updatedScheduleData)
   }
@@ -86,7 +86,7 @@ const Schedule = ({ weekRange, schedule, value, setUpdatedSchedule, updatedEmplo
     setConfirmDelete(false)
     setHideContent(false)
     const date = moment(value).format('L').replaceAll('/', '')
-    const response = await fetch(`http://localhost:4000/clearschedule/${date}`, { method: 'DELETE' })
+    const response = await fetch(`https://delightful-neckerchief-foal.cyclic.app/clearschedule/${date}`, { method: 'DELETE' })
     const data = await response.json()
     if (data.message === 'OK') setUpdatedSchedule([])
   }
@@ -126,7 +126,7 @@ const Schedule = ({ weekRange, schedule, value, setUpdatedSchedule, updatedEmplo
 
     if (!weekRange.length) return
     
-    const response = await fetch(`http://localhost:4000/week/${weekRange}`)
+    const response = await fetch(`https://delightful-neckerchief-foal.cyclic.app/week/${weekRange}`)
     const data = await response.json()
 
     const days = []

@@ -25,14 +25,14 @@ const ScheduleEntry = ({ name, shift, id, setUpdatedSchedule, date, index }) => 
     const [defaultShiftIndex, setDefaultShiftIndex] = useState(0)
 
     const getShifts = async () => {
-        const response = await fetch('http://localhost:4000/shifts')
+        const response = await fetch('https://delightful-neckerchief-foal.cyclic.app/shifts')
         const data = await response.json()
         setShiftList(data)
         setShiftText(`${shiftState.startShift} - ${shiftState.endShift}`)
     }
 
     const getEmployees = async () => {
-        const response = await fetch('http://localhost:4000/employees')
+        const response = await fetch('https://delightful-neckerchief-foal.cyclic.app/employees')
         const data = await response.json()
         setEmployeeList(data)
         setEmployeeText(`${nameState.firstName} ${nameState.lastName}`)
@@ -41,10 +41,10 @@ const ScheduleEntry = ({ name, shift, id, setUpdatedSchedule, date, index }) => 
     const dialogOK = async () => {
         showDialogRemove(false)
         // delete schedule entry
-        const response = await fetch(`http://localhost:4000/schedule/${id}`, { method: 'DELETE' })
+        const response = await fetch(`https://delightful-neckerchief-foal.cyclic.app/schedule/${id}`, { method: 'DELETE' })
         const data = await response.json()
         // retrieve updated entry
-        const updatedSchedule = await fetch(`http://localhost:4000/schedule/${date}`, { method: 'GET'})
+        const updatedSchedule = await fetch(`https://delightful-neckerchief-foal.cyclic.app/schedule/${date}`, { method: 'GET'})
         const updatedScheduleData = await updatedSchedule.json()
         // pass updated schedule up to App component
         setUpdatedSchedule(updatedScheduleData)
@@ -90,7 +90,7 @@ const ScheduleEntry = ({ name, shift, id, setUpdatedSchedule, date, index }) => 
                     body: JSON.stringify({ id: id, name: employeeText, shift: shiftText, type:'EDIT_SHIFT' })
 
                 }
-                const response = await fetch('http://localhost:4000/schedule', options)
+                const response = await fetch('https://delightful-neckerchief-foal.cyclic.app/schedule', options)
                 const data = await response.json()
                 data.shifts.map(e => {
                     if (e._id === id) {

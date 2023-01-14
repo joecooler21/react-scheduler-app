@@ -46,7 +46,7 @@ function App() {
     }
 
     try {
-      const response = await fetch(`http://localhost:4000/fill`, options)
+      const response = await fetch(`https://delightful-neckerchief-foal.cyclic.app/fill`, options)
       const data = response.json()
     } catch {
       console.log('error')
@@ -56,14 +56,14 @@ function App() {
 
   useEffect(() => {
     setCurrentSchedule(updatedSchedule)
-    loadDummyData()
+    //loadDummyData()
   }, [updatedSchedule, setUpdatedSchedule])
 
   const onClickDay = async (value, event) => {
     const date = moment(value).format('L').replaceAll('/', '')
 
     setCurrentDay(date)
-    const response = await fetch(`http://localhost:4000/schedule/${date}`, { method: 'GET' })
+    const response = await fetch(`https://delightful-neckerchief-foal.cyclic.app/schedule/${date}`, { method: 'GET' })
     const data = await response.json()
     setCurrentSchedule(data)
 
