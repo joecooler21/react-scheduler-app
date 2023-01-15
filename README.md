@@ -6,4 +6,4 @@ Hello and welcome to my simple employee scheduler application. This project uses
 
 [Live Demo](https://joecooler21.github.io/react-scheduler-app/)
 
-It's pretty straight forward. You can view, add, edit and remove employee and shift information just by clicking on a date in the calender. All changes occur in realtime, so no having to save manually. You can also click any day of the week and view that weeks schedule laid out in a nice clean printable format.
+It's pretty straight forward. Available employees and shifts can be added and removed. Schedule information can be viewed and modified just by clicking on a date in on the calender. All changes happen in real time, so no manual saves are needed. Also, if you need a printer-friendly weekly schedule, you can click on any day of that week and hit the purple printer button.
